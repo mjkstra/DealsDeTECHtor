@@ -1,0 +1,19 @@
+{
+  "name": "dealsdetechtor",
+  "version": "1.0.0",
+  "description": "Progetto per il D5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgementi/DealsDeTECHtor.git"
+  },
+  "author": "Gruppo G11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgementi/DealsDeTECHtor/issues"
+  },
+  "homepage": "https://github.com/mgementi/DealsDeTECHtor#readme"
+}
