@@ -1,19 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button @click.prevent="cambiaScritta">Clicca</button>
+    <p>{{ scritta }}</p>
+    <Prodotto nome="Prodotto1" prezzo="1.00€" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Prodotto from "./components/Prodotto.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Prodotto,
+  },
+  props: {
+    awesome: Boolean,
+  },
+  data() {
+    return { scritta: "Hello world" };
+  },
+  methods: {
+    cambiaScritta: function () {
+      this.scritta = "Funziona!!!!!!!!!!!!";
+    },
+  },
+};
 </script>
 
 <style>

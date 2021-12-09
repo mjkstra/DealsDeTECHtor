@@ -25,4 +25,7 @@ app.listen(1234, () => {
 
 app.get("/", (request, response) => {
     response.send("Hello world");
-})
+    database.collection("Prodotti").insertOne({ "ciao": "mondo" });
+});
+
+
