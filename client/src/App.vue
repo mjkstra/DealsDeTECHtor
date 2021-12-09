@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <button @click.prevent="cambiaScritta">Clicca</button>
+    <button @click.prevent="cambiaScritta" class="btn btn-primary">
+      Clicca
+    </button>
     <p>{{ scritta }}</p>
     <Prodotto nome="Prodotto1" prezzo="1.00€" />
   </div>
