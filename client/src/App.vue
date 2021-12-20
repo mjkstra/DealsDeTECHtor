@@ -1,10 +1,37 @@
 <template>
   <div id="app">
-    <button @click.prevent="cambiaScritta" class="btn btn-primary">
-      Clicca
-    </button>
-    <p>{{ scritta }}</p>
-    <Prodotto nome="Prodotto1" prezzo="1.00€" />
+    <div id="menu">
+      <a href="#">Ricerca Prodotto</a>
+      <a href="#">Preferiti</a>
+      <a href="#">Cronologia</a>
+    </div>
+
+    <div id="ricerca">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Inserisci nome prodotto.."
+        />
+        <button class="btn btn-success" type="submit">Cerca</button>
+      </div>
+      <ul class="list-group">
+        <li
+          class="list-group-item p-3 product-entry"
+          v-for="p in prodotti"
+          :key="p.nome"
+        >
+          <Prodotto
+            :nome="p.nome"
+            :sito="p.sito"
+            :prezzo="p.prezzo"
+            preferito
+            v-if="p.preferito == true"
+          />
+          <Prodotto :nome="p.nome" :sito="p.sito" :prezzo="p.prezzo" v-else />
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -16,27 +43,66 @@ export default {
   components: {
     Prodotto,
   },
-  props: {
-    awesome: Boolean,
-  },
+  props: {},
   data() {
-    return { scritta: "Hello world" };
+    return {
+      prodotti: [
+        {
+          nome: "Prodotto1",
+          prezzo: 5.0,
+          sito: "amazon",
+          preferito: true,
+        },
+        {
+          nome: "Prodotto2",
+          prezzo: 10.0,
+          sito: "ebay",
+          preferito: false,
+        },
+        {
+          nome: "Prodotto3",
+          prezzo: 2.0,
+          sito: "wish",
+          preferito: false,
+        },
+      ],
+    };
   },
-  methods: {
-    cambiaScritta: function () {
-      this.scritta = "Funziona!!!!!!!!!!!!";
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: lightblue;
+  min-height: 100%;
+}
+
+#menu {
+  display: flex;
+  background-color: #e9e9e9;
+  justify-content: center;
+}
+
+#menu a {
+  display: block;
+  background-color: inherit;
+  color: black;
+  font-size: 17px;
+  padding: 1%;
+  text-decoration: none;
+}
+
+#menu a:hover {
+  display: block;
+  background-color: lightgray;
+}
+
+#ricerca {
+  display: grid;
+  grid-template-columns: 50%;
+  justify-content: center;
+  margin-top: 2%;
 }
 </style>
