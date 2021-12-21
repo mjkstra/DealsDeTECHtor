@@ -3,7 +3,7 @@
     <a href="#" class="text-decoration-none text-dark"
       ><div>{{ nome }} ({{ sito }})</div></a
     >
-    <div style="justify-self: end">{{ prezzo.toFixed(2) }}$</div>
+    <div style="justify-self: end">{{ prezzo.toFixed(2) }}{{ valuta }}</div>
     <b-icon
       v-if="isPreferito == true"
       icon="star-fill"
@@ -28,6 +28,7 @@ export default {
     prezzo: Number,
     sito: String,
     preferito: Boolean,
+    valuta: String,
   },
   data() {
     return { isPreferito: this.preferito };

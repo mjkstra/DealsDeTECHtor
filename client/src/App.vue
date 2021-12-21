@@ -27,21 +27,32 @@
             :prezzo="p.prezzo"
             preferito
             v-if="p.preferito == true"
+            :v-on:click="mostraPopup(p)"
           />
-          <Prodotto :nome="p.nome" :sito="p.sito" :prezzo="p.prezzo" v-else />
+          <Prodotto
+            :nome="p.nome"
+            :sito="p.sito"
+            :prezzo="p.prezzo"
+            :valuta="p.valuta"
+            :v-on:click="mostraPopup(p)"
+            v-else
+          />
         </li>
       </ul>
     </div>
+    <popup-prodotto />
   </div>
 </template>
 
 <script>
+import PopupProdotto from "./components/PopupProdotto.vue";
 import Prodotto from "./components/Prodotto.vue";
 
 export default {
   name: "App",
   components: {
     Prodotto,
+    PopupProdotto,
   },
   props: {},
   data() {
@@ -52,23 +63,34 @@ export default {
           prezzo: 5.0,
           sito: "amazon",
           preferito: true,
+          valuta: "$",
         },
         {
           nome: "Prodotto2",
           prezzo: 10.0,
           sito: "ebay",
           preferito: false,
+          valuta: "$",
         },
         {
           nome: "Prodotto3",
           prezzo: 2.0,
           sito: "wish",
           preferito: false,
+          valuta: "$",
         },
       ],
     };
   },
-  methods: {},
+  methods: {
+    mostraPopup: function (prodotto) {
+      let popup = document.getElementById("popup");
+      if (popup != null) {
+        popup.prodotto = prodotto;
+        popup.attivo = true;
+      }
+    },
+  },
 };
 </script>
 
