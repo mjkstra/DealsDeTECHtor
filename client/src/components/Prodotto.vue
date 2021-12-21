@@ -1,8 +1,6 @@
 <template>
   <div id="prodotto">
-    <a href="#" class="text-decoration-none text-dark"
-      ><div>{{ nome }} ({{ sito }})</div></a
-    >
+    <div>{{ nome }} ({{ sito }})</div>
     <div style="justify-self: end">{{ prezzo.toFixed(2) }}{{ valuta }}</div>
     <b-icon
       v-if="isPreferito == true"

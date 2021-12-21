@@ -9,17 +9,21 @@
     <div id="ricerca">
       <div class="input-group mb-3">
         <input
+          id="ricerca"
           type="text"
           class="form-control"
           placeholder="Inserisci nome prodotto.."
         />
-        <button class="btn btn-success" type="submit">Cerca</button>
+        <button class="btn btn-success" type="submit" v-on:click="cerca()">
+          Cerca
+        </button>
       </div>
       <ul class="list-group">
         <li
           class="list-group-item p-3 product-entry"
           v-for="p in prodotti"
           :key="p.nome"
+          v-on:click="mostraPopup(p)"
         >
           <Prodotto
             :nome="p.nome"
@@ -27,26 +31,36 @@
             :prezzo="p.prezzo"
             preferito
             v-if="p.preferito == true"
-            :v-on:click="mostraPopup(p)"
           />
           <Prodotto
             :nome="p.nome"
             :sito="p.sito"
             :prezzo="p.prezzo"
             :valuta="p.valuta"
-            :v-on:click="mostraPopup(p)"
             v-else
           />
         </li>
       </ul>
+      <h3 v-if="prodotti == []">
+        Inserisci una stringa per effettuare la ricerca
+      </h3>
     </div>
-    <popup-prodotto />
+    <PopupProdotto id="popup" />
   </div>
 </template>
 
 <script>
 import PopupProdotto from "./components/PopupProdotto.vue";
 import Prodotto from "./components/Prodotto.vue";
+
+function convertToJSON(object) {
+  let text = "{";
+  for (let key in object) {
+    text += key + '"' + object[key] + '",';
+  }
+  text += "}";
+  return text;
+}
 
 export default {
   name: "App",
@@ -57,13 +71,21 @@ export default {
   props: {},
   data() {
     return {
-      prodotti: [
+      prodotti: [],
+    };
+  },
+  methods: {
+    cerca: function () {
+      let stringa = document.getElementById("ricerca");
+      console.log(stringa.value);
+      this.prodotti = [
         {
           nome: "Prodotto1",
           prezzo: 5.0,
           sito: "amazon",
           preferito: true,
           valuta: "$",
+          link: "https://prova.com",
         },
         {
           nome: "Prodotto2",
@@ -71,6 +93,7 @@ export default {
           sito: "ebay",
           preferito: false,
           valuta: "$",
+          link: "https://prova.com",
         },
         {
           nome: "Prodotto3",
@@ -78,13 +101,13 @@ export default {
           sito: "wish",
           preferito: false,
           valuta: "$",
+          link: "https://prova.com",
         },
-      ],
-    };
-  },
-  methods: {
+      ];
+    },
     mostraPopup: function (prodotto) {
       let popup = document.getElementById("popup");
+      console.log(convertToJSON(prodotto));
       if (popup != null) {
         popup.prodotto = prodotto;
         popup.attivo = true;
