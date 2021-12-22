@@ -36,15 +36,6 @@
 </template>
 
 <script>
-/*function convertToJSON(object) {
-  let text = "{";
-  for (let key in object) {
-    text += '"' + key + '": "' + object[key] + '",';
-  }
-  text += "}";
-  return text;
-}*/
-
 export default {
   name: "Prodotto",
   props: {
@@ -52,7 +43,23 @@ export default {
     default: () => ({}),
   },
   data() {
-    return { isPreferito: this.prodotto.preferito, popup: false };
+    let xhttp = new XMLHttpRequest();
+    let preferito;
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        // Typical action to be performed when the document is ready:
+        if (xhttp.responseText == "OK") {
+          preferito = true;
+        } else {
+          preferito = false;
+        }
+      }
+    };
+    let url = "http://192.168.122.25:1234/isPreferito/" + this.prodotto.nome;
+    console.log(url);
+    xhttp.open("GET", url, false);
+    xhttp.send();
+    return { isPreferito: preferito, popup: false };
   },
   methods: {
     cambiaIcona: function () {
@@ -67,7 +74,7 @@ export default {
             console.log("Connessione riuscita");
           }
         };
-        xhttp.open("POST", "http://192.168.125.183:1234/preferiti", true);
+        xhttp.open("POST", "http://192.168.122.25:1234/preferiti", true);
         xhttp.setRequestHeader(
           "Content-type",
           "application/json; charset=utf-8"
@@ -81,7 +88,7 @@ export default {
             console.log("Cancellazione riuscita");
           }
         };
-        let url = "http://192.168.125.183:1234/preferiti/" + this.prodotto.nome;
+        let url = "http://192.168.122.25:1234/preferiti/" + this.prodotto.nome;
         console.log(url);
         xhttp.open("DELETE", url, true);
         xhttp.send();
@@ -101,7 +108,7 @@ export default {
           console.log("Connessione riuscita");
         }
       };
-      xhttp.open("POST", "http://192.168.125.183:1234/cronologia", true);
+      xhttp.open("POST", "http://192.168.122.25:1234/cronologia", true);
       xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
       xhttp.send(params);
     },

@@ -63,3 +63,19 @@ app.delete("/preferiti/:nome", (request, response) => {
     //console.log(request.params.nome);
     response.send("OK");
 });
+
+app.get("/isPreferito/:nome", (request, response) => {
+    database.collection("Preferiti").findOne({ nome: request.params.nome }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result);
+            if (result != null && result != undefined && result != {}) {
+                response.send("OK");
+            } else {
+                response.send("NO");
+            }
+        }
+    });
+});

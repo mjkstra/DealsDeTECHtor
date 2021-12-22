@@ -37,9 +37,10 @@ export default {
         console.log("Connessione riuscita");
         console.log(xhttp.responseText);
         prodotti = JSON.parse(xhttp.responseText);
+        this.prodotti = prodotti;
       }
     };
-    xhttp.open("GET", "http://192.168.125.183:1234/cronologia", false);
+    xhttp.open("GET", "http://192.168.122.25:1234/cronologia", false);
     xhttp.send();
     return {
       prodotti: prodotti,
