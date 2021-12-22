@@ -1,24 +1,27 @@
 <template>
+
   <div id="prodotto">
+
     <div v-on:click="mostraPopup()">
       {{ prodotto.nome }} ({{ prodotto.sito }})
     </div>
+
     <div style="justify-self: end">
       {{ prodotto.prezzo.toFixed(2) }}{{ prodotto.valuta }}
     </div>
+
     <b-icon
       v-if="isPreferito == true"
       icon="star-fill"
       style="font-size: 24px; justify-self: end"
-      v-on:click="cambiaIcona()"
-    ></b-icon>
+      v-on:click="cambiaIcona()" />
     <b-icon
       id="icona"
       v-else
       icon="star"
       style="font-size: 24px; justify-self: end"
-      v-on:click="cambiaIcona()"
-    ></b-icon>
+      v-on:click="cambiaIcona()" />
+    
     <div id="popup" v-show="popup">
       <h2>Dettagli prodotto</h2>
       <hr />
@@ -32,19 +35,24 @@
         >
       </p>
     </div>
+
   </div>
+
 </template>
 
 <script>
 export default {
   name: "Prodotto",
+
   props: {
     prodotto: Object,
     default: () => ({}),
   },
+
   data() {
     let xhttp = new XMLHttpRequest();
     let preferito;
+
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         // Typical action to be performed when the document is ready:
@@ -55,32 +63,40 @@ export default {
         }
       }
     };
+
     let url = "http://192.168.122.25:1234/isPreferito/" + this.prodotto.nome;
     console.log(url);
     xhttp.open("GET", url, false);
     xhttp.send();
     return { isPreferito: preferito, popup: false };
   },
+
   methods: {
     cambiaIcona: function () {
       this.isPreferito = !this.isPreferito;
+
       if (this.isPreferito) {
         let params = JSON.stringify({ prodotto: this.prodotto });
         console.log(params);
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
+
           if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             console.log("Connessione riuscita");
           }
+
         };
+
         xhttp.open("POST", "http://192.168.122.25:1234/preferiti", true);
         xhttp.setRequestHeader(
           "Content-type",
           "application/json; charset=utf-8"
         );
         xhttp.send(params);
+
       } else {
+
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
@@ -92,10 +108,13 @@ export default {
         console.log(url);
         xhttp.open("DELETE", url, true);
         xhttp.send();
+
       }
       this.prodotto.preferito = !this.prodotto.preferito;
     },
+
     mostraPopup: function () {
+
       //popup = !popup;
       //let json = '{"prodotto": ' + convertToJSON(this.prodotto) + "}";
 
@@ -111,6 +130,7 @@ export default {
       xhttp.open("POST", "http://192.168.122.25:1234/cronologia", true);
       xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
       xhttp.send(params);
+
     },
   },
 };

@@ -1,23 +1,26 @@
 <template>
   <div id="app">
+    
     <div id="menu">
       <a href="#">Ricerca Prodotto</a>
       <a href="preferiti.js">Preferiti</a>
       <a href="cronologia.js">Cronologia</a>
     </div>
 
-    <div id="ricerca">
+    <div id="boxricerca">
+
       <div class="input-group mb-3">
-        <input
-          id="ricerca"
-          type="text"
-          class="form-control"
-          placeholder="Inserisci nome prodotto.."
-        />
-        <button class="btn btn-success" type="submit" v-on:click="cerca()">
-          Cerca
+          <input 
+            id="ricerca" 
+            type="search"
+            class="form-control"
+            placeholder="Inserisci nome prodotto.." />
+
+        <button type="button" class="btn btn-primary" v-on:click="cerca()">
+          <b-icon icon="search"></b-icon>
         </button>
       </div>
+      
       <ul class="list-group">
         <li
           class="list-group-item p-3 product-entry"
@@ -30,7 +33,9 @@
       <h3 v-if="prodotti == []">
         Inserisci una stringa per effettuare la ricerca
       </h3>
+
     </div>
+
   </div>
 </template>
 
@@ -54,25 +59,25 @@ export default {
       console.log(stringa.value);
       this.prodotti = [
         {
-          nome: "Prodotto1",
-          prezzo: 5.0,
-          sito: "amazon",
+          nome: "Prodotto 1",
+          prezzo: 5.2,
+          sito: "Amazon",
           valuta: "$",
-          link: "https://prova.com",
+          link: "https://www.amazon.com/search/?name=prodotto1"
         },
         {
           nome: "Prodotto2",
-          prezzo: 10.0,
-          sito: "ebay",
+          prezzo: 10.3,
+          sito: "Ebay",
           valuta: "$",
-          link: "https://prova.com",
+          link: "https://www.ebay.com/search/?name=prodotto2"
         },
         {
           nome: "Prodotto3",
-          prezzo: 2.0,
-          sito: "wish",
+          prezzo: 2.1,
+          sito: "Wish",
           valuta: "$",
-          link: "https://prova.com",
+          link: "https://www.wish.com/search/?name=prodotto3"
         },
       ];
     },
@@ -107,9 +112,9 @@ export default {
   background-color: lightgray;
 }
 
-#ricerca {
+#boxricerca {
   display: grid;
-  grid-template-columns: 50%;
+  grid-template-columns: 35%;
   justify-content: center;
   margin-top: 2%;
 }
