@@ -3,7 +3,7 @@
     <div id="menu">
       <a href="#">Ricerca Prodotto</a>
       <a href="#">Preferiti</a>
-      <a href="#">Cronologia</a>
+      <a href="cronologia.js">Cronologia</a>
     </div>
 
     <div id="ricerca">
@@ -23,50 +23,24 @@
           class="list-group-item p-3 product-entry"
           v-for="p in prodotti"
           :key="p.nome"
-          v-on:click="mostraPopup(p)"
         >
-          <Prodotto
-            :nome="p.nome"
-            :sito="p.sito"
-            :prezzo="p.prezzo"
-            preferito
-            v-if="p.preferito == true"
-          />
-          <Prodotto
-            :nome="p.nome"
-            :sito="p.sito"
-            :prezzo="p.prezzo"
-            :valuta="p.valuta"
-            v-else
-          />
+          <Prodotto :prodotto="p" />
         </li>
       </ul>
       <h3 v-if="prodotti == []">
         Inserisci una stringa per effettuare la ricerca
       </h3>
     </div>
-    <PopupProdotto id="popup" />
   </div>
 </template>
 
 <script>
-import PopupProdotto from "./components/PopupProdotto.vue";
 import Prodotto from "./components/Prodotto.vue";
-
-function convertToJSON(object) {
-  let text = "{";
-  for (let key in object) {
-    text += key + '"' + object[key] + '",';
-  }
-  text += "}";
-  return text;
-}
 
 export default {
   name: "App",
   components: {
     Prodotto,
-    PopupProdotto,
   },
   props: {},
   data() {
@@ -104,14 +78,6 @@ export default {
           link: "https://prova.com",
         },
       ];
-    },
-    mostraPopup: function (prodotto) {
-      let popup = document.getElementById("popup");
-      console.log(convertToJSON(prodotto));
-      if (popup != null) {
-        popup.prodotto = prodotto;
-        popup.attivo = true;
-      }
     },
   },
 };

@@ -23,9 +23,20 @@ app.listen(1234, () => {
     })
 });
 
-app.get("/", (request, response) => {
-    response.send("Hello world");
-    database.collection("Prodotti").insertOne({ "ciao": "mondo" });
+app.post("/cronologia", (request, response) => {
+    response.send("OK");
+    let prodotto = request.body["prodotto"];
+    console.log(prodotto);
+    database.collection("Cronologia").insertOne(prodotto);
+});
+
+app.get("/cronologia", (request, response) => {
+    database.collection("Cronologia").find({}).toArray((error, result) => {
+        if (error) {
+            console.log(error);
+        }
+        response.send(result);
+    })
 });
 
 
