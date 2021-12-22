@@ -86,10 +86,10 @@ app.listen(1234, () => {
  *                       sito:
  *                          type: string
  *                          description: The website of the product
- *                          example: true
+ *                          example: https://www.wish.com/search/?name=prodotto3
  *     responses:
  *       201:
- *         description: successful executed
+ *         description: Product added to past searched products
 */
 app.post("/cronologia", (request, response) => {
     let prodotto = request.body["prodotto"];
@@ -136,7 +136,7 @@ app.post("/cronologia", (request, response) => {
  *                       sito:
  *                          type: string
  *                          description: The website of the product
- *                          example: true
+ *                          example: https://www.wish.com/search/?name=prodotto3
  */
 app.get("/cronologia", (request, response) => {
     database.collection("Cronologia").find({}).toArray((error, result) => {
@@ -147,7 +147,46 @@ app.get("/cronologia", (request, response) => {
     })
 });
 
-
+/**
+ * @swagger
+ * /preferiti:
+ *   get:
+ *     summary: Retrieve the list of favourite products.
+ *     description: Retrieve the list of favourite products from the Server.
+ *     responses:
+ *       200:
+ *         description: A list of products.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: ObjectId
+ *                         description: The id of the product
+ *                         example: 61a2ae7bb48bb237244bf8a9
+ *                       nome:
+ *                         type: string
+ *                         description: The name of the product
+ *                         example: Prodotto1
+ *                       prezzo:
+ *                         type: float
+ *                         description: The price of the product
+ *                         example: 5.0
+ *                       valuta: 
+ *                          type: char
+ *                          description: The money symbol
+ *                          example: $
+ *                       sito:
+ *                          type: string
+ *                          description: The website of the product
+ *                          example: https://www.wish.com/search/?name=prodotto3
+ */
 app.get("/preferiti", (request, response) => {
     database.collection("Preferiti").find({}).toArray((error, result) => {
         if (error) {
@@ -157,6 +196,42 @@ app.get("/preferiti", (request, response) => {
     })
 });
 
+/**
+ * @swagger
+ * /preferiti:
+ *   post:
+ *     summary: Puts a product in the favourite list.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                       _id:
+ *                         type: ObjectId
+ *                         description: The id of the product
+ *                         example: 61a2ae7bb48bb237244bf8a9
+ *                       nome:
+ *                         type: string
+ *                         description: The name of the product
+ *                         example: Prodotto1
+ *                       prezzo:
+ *                         type: float
+ *                         description: The price of the product
+ *                         example: 5.0
+ *                       valuta: 
+ *                          type: char
+ *                          description: The money symbol
+ *                          example: $
+ *                       sito:
+ *                          type: string
+ *                          description: The website of the product
+ *                          example: https://www.wish.com/search/?name=prodotto3
+ *     responses:
+ *       201:
+ *         description: Product added to favourites.
+*/
 app.post("/preferiti", (request, response) => {
     let prodotto = request.body["prodotto"];
     //console.log(prodotto);
@@ -164,6 +239,22 @@ app.post("/preferiti", (request, response) => {
     response.send("OK");
 });
 
+/**
+ * @swagger
+ * /preferiti/{nome}:
+ *   delete:
+ *     summary: Removes a product from the favourite list.
+ *     description: Given a product name, the api removes the product from the favourite list.
+ *     parameters:
+ *       - name: nome
+ *         schema:
+ *             type: string
+ *         required: true
+ *         description: Inserts the product name
+ *     responses:
+ *       200:
+ *         description: The product has been removed from the favourites
+*/
 app.delete("/preferiti/:nome", (request, response) => {
     database.collection("Preferiti").deleteMany({
         nome: request.params.nome,
@@ -172,6 +263,28 @@ app.delete("/preferiti/:nome", (request, response) => {
     response.send("OK");
 });
 
+
+/**
+ * @swagger
+ * /preferiti/{nome}:
+ *   get:
+ *     summary: Tells if a product is in the favourites.
+ *     description: Tells if a product is in the favourites, given its name.
+ *     parameters:
+ *       - name: nome
+ *         schema: 
+ *             type: string
+ *         required: true
+ *         description: The name of the product to query.
+ *     responses:
+ *       200:
+ *         description: \"OK\" if the product is favourite, \"NO\" otherwise.
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: OK
+ */
 app.get("/isPreferito/:nome", (request, response) => {
     database.collection("Preferiti").findOne({ nome: request.params.nome }, function (err, result) {
         if (err) {
