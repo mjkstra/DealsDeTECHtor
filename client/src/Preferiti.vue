@@ -38,7 +38,6 @@ export default {
     let prodotti = [];
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        // Typical action to be performed when the document is ready:
         console.log("Connessione riuscita");
         console.log(xhttp.responseText);
         prodotti = JSON.parse(xhttp.responseText);

@@ -59,7 +59,19 @@ export default {
     cerca: function () {
       let stringa = document.getElementById("ricerca");
       console.log(stringa.value);
-      this.prodotti = [
+      
+      let req = new XMLHttpRequest();
+      req.onreadystatechange = function (){
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("Connessione riuscita");
+          console.log(xhttp.responseText);
+          prodotti = JSON.parse(xhttp.responseText);
+          this.prodotti = prodotti;
+        }
+      }
+      req.open("GET", "http://localhost:1234/prodotti", false);
+      req.send();
+      /*this.prodotti = [
         {
           nome: "Prodotto1",
           prezzo: 5.2,
@@ -81,7 +93,7 @@ export default {
           valuta: "$",
           link: "https://www.wish.com/search/?name=prodotto3"
         }
-      ];
+      ];*/
     },
   },
 };
