@@ -84,7 +84,7 @@ export default {
 #app {
   font-family: Arial, Helvetica, sans-serif;
   background-color: lightblue;
-  min-height: 100%;
+  height: 100vh;
 }
 
 #menu {
