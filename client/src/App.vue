@@ -2,7 +2,7 @@
   <div id="app">
     <div id="menu">
       <a href="#">Ricerca Prodotto</a>
-      <a href="#">Preferiti</a>
+      <a href="preferiti.js">Preferiti</a>
       <a href="cronologia.js">Cronologia</a>
     </div>
 

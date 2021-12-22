@@ -7,5 +7,8 @@ module.exports = {
         cronologia: {
             entry: 'src/cronologia.js'
         },
+        preferiti: {
+            entry: 'src/preferiti.js'
+        },
     }
 }

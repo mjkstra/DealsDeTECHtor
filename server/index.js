@@ -24,10 +24,10 @@ app.listen(1234, () => {
 });
 
 app.post("/cronologia", (request, response) => {
-    response.send("OK");
     let prodotto = request.body["prodotto"];
-    console.log(prodotto);
+    //console.log(prodotto);
     database.collection("Cronologia").insertOne(prodotto);
+    response.send("OK");
 });
 
 app.get("/cronologia", (request, response) => {
@@ -40,3 +40,26 @@ app.get("/cronologia", (request, response) => {
 });
 
 
+app.get("/preferiti", (request, response) => {
+    database.collection("Preferiti").find({}).toArray((error, result) => {
+        if (error) {
+            console.log(error);
+        }
+        response.send(result);
+    })
+});
+
+app.post("/preferiti", (request, response) => {
+    let prodotto = request.body["prodotto"];
+    //console.log(prodotto);
+    database.collection("Preferiti").insertOne(prodotto);
+    response.send("OK");
+});
+
+app.delete("/preferiti/:nome", (request, response) => {
+    database.collection("Preferiti").deleteMany({
+        nome: request.params.nome,
+    });
+    //console.log(request.params.nome);
+    response.send("OK");
+});

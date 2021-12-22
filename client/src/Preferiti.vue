@@ -2,8 +2,8 @@
   <div id="app">
     <div id="menu">
       <a href="main.js">Ricerca Prodotto</a>
-      <a href="preferiti.js">Preferiti</a>
-      <a href="#">Cronologia</a>
+      <a href="#">Preferiti</a>
+      <a href="cronologia.js">Cronologia</a>
     </div>
     <div id="cronologia">
       <ul class="list-group">
@@ -39,7 +39,7 @@ export default {
         prodotti = JSON.parse(xhttp.responseText);
       }
     };
-    xhttp.open("GET", "http://192.168.125.183:1234/cronologia", false);
+    xhttp.open("GET", "http://192.168.125.183:1234/preferiti", false);
     xhttp.send();
     return {
       prodotti: prodotti,

@@ -57,13 +57,42 @@ export default {
   methods: {
     cambiaIcona: function () {
       this.isPreferito = !this.isPreferito;
+      if (this.isPreferito) {
+        let params = JSON.stringify({ prodotto: this.prodotto });
+        console.log(params);
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            console.log("Connessione riuscita");
+          }
+        };
+        xhttp.open("POST", "http://192.168.125.183:1234/preferiti", true);
+        xhttp.setRequestHeader(
+          "Content-type",
+          "application/json; charset=utf-8"
+        );
+        xhttp.send(params);
+      } else {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            console.log("Cancellazione riuscita");
+          }
+        };
+        let url = "http://192.168.125.183:1234/preferiti/" + this.prodotto.nome;
+        console.log(url);
+        xhttp.open("DELETE", url, true);
+        xhttp.send();
+      }
       this.prodotto.preferito = !this.prodotto.preferito;
     },
     mostraPopup: function () {
       //popup = !popup;
       //let json = '{"prodotto": ' + convertToJSON(this.prodotto) + "}";
 
-      var params = JSON.stringify({ prodotto: this.prodotto });
+      let params = JSON.stringify({ prodotto: this.prodotto });
       console.log(params);
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
