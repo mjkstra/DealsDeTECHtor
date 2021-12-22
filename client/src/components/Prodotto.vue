@@ -64,7 +64,7 @@ export default {
       }
     };
 
-    let url = "http://192.168.122.25:1234/isPreferito/" + this.prodotto.nome;
+    let url = "http://localhost:1234/isPreferito/" + this.prodotto.nome;
     console.log(url);
     xhttp.open("GET", url, false);
     xhttp.send();
@@ -88,7 +88,7 @@ export default {
 
         };
 
-        xhttp.open("POST", "http://192.168.122.25:1234/preferiti", true);
+        xhttp.open("POST", "http://localhost:1234/preferiti", true);
         xhttp.setRequestHeader(
           "Content-type",
           "application/json; charset=utf-8"
@@ -104,7 +104,7 @@ export default {
             console.log("Cancellazione riuscita");
           }
         };
-        let url = "http://192.168.122.25:1234/preferiti/" + this.prodotto.nome;
+        let url = "http://localhost:1234/preferiti/" + this.prodotto.nome;
         console.log(url);
         xhttp.open("DELETE", url, true);
         xhttp.send();
@@ -127,7 +127,7 @@ export default {
           console.log("Connessione riuscita");
         }
       };
-      xhttp.open("POST", "http://192.168.122.25:1234/cronologia", true);
+      xhttp.open("POST", "http://localhost:1234/cronologia", true);
       xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
       xhttp.send(params);
 

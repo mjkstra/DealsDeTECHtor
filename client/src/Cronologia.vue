@@ -1,22 +1,28 @@
 <template>
+
   <div id="app">
+    
+    <div id="title">DealsDeTECHtor</div>
+
     <div id="menu">
       <a href="main.js">Ricerca Prodotto</a>
       <a href="preferiti.js">Preferiti</a>
-      <a href="#">Cronologia</a>
+      <a href="cronologia.js">Cronologia</a>
     </div>
+
     <div id="cronologia">
       <ul class="list-group">
         <li
           class="list-group-item p-3 product-entry"
           v-for="p in prodotti"
-          :key="p.nome"
-        >
+          :key="p.nome" >
           <Prodotto :prodotto="p" />
         </li>
       </ul>
     </div>
+
   </div>
+
 </template>
 
 <script>
@@ -24,11 +30,15 @@ import Prodotto from "./components/Prodotto.vue";
 
 export default {
   name: "App",
+
   components: {
     Prodotto,
   },
+
   props: {},
+
   data() {
+
     let xhttp = new XMLHttpRequest();
     let prodotti = [];
     xhttp.onreadystatechange = function () {
@@ -40,12 +50,13 @@ export default {
         this.prodotti = prodotti;
       }
     };
-    xhttp.open("GET", "http://192.168.122.25:1234/cronologia", false);
+    xhttp.open("GET", "http://localhost:1234/cronologia", false);
     xhttp.send();
     return {
       prodotti: prodotti,
     };
   },
+
   methods: {},
 };
 </script>
@@ -54,7 +65,7 @@ export default {
 #app {
   font-family: Arial, Helvetica, sans-serif;
   background-color: lightblue;
-  min-height: 100%;
+  height: 100vh;
 }
 
 #menu {
@@ -74,6 +85,20 @@ export default {
 
 #menu a:hover {
   display: block;
+  background-color: lightgray;
+}
+
+#cronologia {
+  display: grid;
+  grid-template-columns: 35%;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+#title{
+  font-size:3vw;
+  font-weight: bold;
+  text-align:center;
   background-color: lightgray;
 }
 </style>

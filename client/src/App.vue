@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     
+    <div id="title">DealsDeTECHtor</div>
+    
     <div id="menu">
-      <a href="#">Ricerca Prodotto</a>
+      <a href="main.js">Ricerca Prodotto</a>
       <a href="preferiti.js">Preferiti</a>
       <a href="cronologia.js">Cronologia</a>
     </div>
@@ -59,7 +61,7 @@ export default {
       console.log(stringa.value);
       this.prodotti = [
         {
-          nome: "Prodotto 1",
+          nome: "Prodotto1",
           prezzo: 5.2,
           sito: "Amazon",
           valuta: "$",
@@ -78,7 +80,7 @@ export default {
           sito: "Wish",
           valuta: "$",
           link: "https://www.wish.com/search/?name=prodotto3"
-        },
+        }
       ];
     },
   },
@@ -118,4 +120,12 @@ export default {
   justify-content: center;
   margin-top: 2%;
 }
+
+#title{
+  font-size:3vw;
+  font-weight: bold;
+  text-align:center;
+  background-color: lightgray;
+}
+
 </style>
