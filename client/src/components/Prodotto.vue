@@ -132,7 +132,7 @@ export default {
       xhttp.send(params);
 
     },
-  },
+  }
 };
 </script>
 

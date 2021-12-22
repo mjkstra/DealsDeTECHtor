@@ -246,7 +246,8 @@ app.post("/preferiti", (request, response) => {
  *     summary: Removes a product from the favourite list.
  *     description: Given a product name, the api removes the product from the favourite list.
  *     parameters:
- *       - name: nome
+ *       - in: path
+ *         name: nome
  *         schema:
  *             type: string
  *         required: true
@@ -266,12 +267,13 @@ app.delete("/preferiti/:nome", (request, response) => {
 
 /**
  * @swagger
- * /preferiti/{nome}:
+ * /isPreferito/{nome}:
  *   get:
  *     summary: Tells if a product is in the favourites.
  *     description: Tells if a product is in the favourites, given its name.
  *     parameters:
- *       - name: nome
+ *       - in: path
+ *         name: nome
  *         schema: 
  *             type: string
  *         required: true
@@ -299,4 +301,63 @@ app.get("/isPreferito/:nome", (request, response) => {
             }
         }
     });
+});
+
+/**
+ * @swagger
+ * /prodotti/{nome}:
+ *   get:
+ *     summary: Search a product.
+ *     description: Search a product by name.
+ *     parameters:
+ *       - in: path
+ *         name: nome
+ *         schema: 
+ *             type: string
+ *         required: true
+ *         description: The name of the product to find.
+ *     responses:
+ *       200:
+ *         description: A list of products.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: ObjectId
+ *                         description: The id of the product
+ *                         example: 61a2ae7bb48bb237244bf8a9
+ *                       nome:
+ *                         type: string
+ *                         description: The name of the product
+ *                         example: Prodotto1
+ *                       prezzo:
+ *                         type: float
+ *                         description: The price of the product
+ *                         example: 5.0
+ *                       valuta: 
+ *                          type: char
+ *                          description: The money symbol
+ *                          example: $
+ *                       sito:
+ *                          type: string
+ *                          description: The website of the product
+ *                          example: https://www.wish.com/search/?name=prodotto3
+ */
+app.get("/prodotti/:nome", (request, response) => {
+    let prod_search = "/^"+request.params.nome+"";
+    database.collection("Prodotti").find({ nome: { $regex: prod_search } }).toArray( function(error,result){
+        if (error)
+            console.log(err);
+        else{
+            console.log(result);
+            response.send(result);
+        }
+    })
 });

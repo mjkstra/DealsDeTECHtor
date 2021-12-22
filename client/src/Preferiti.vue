@@ -50,7 +50,7 @@ export default {
       prodotti: prodotti,
     };
   },
-  methods: {},
+  methods: {}
 };
 </script>
 

@@ -57,19 +57,20 @@ export default {
   },
   methods: {
     cerca: function () {
-      let stringa = document.getElementById("ricerca");
-      console.log(stringa.value);
+      let stringa = document.getElementById("ricerca").value;
+      let url = "http://localhost:1234/prodotti/" + stringa;
       
       let req = new XMLHttpRequest();
       req.onreadystatechange = function (){
         if (this.readyState == 4 && this.status == 200) {
           console.log("Connessione riuscita");
-          console.log(xhttp.responseText);
-          prodotti = JSON.parse(xhttp.responseText);
-          this.prodotti = prodotti;
+          console.log(req.responseText);
+          let ris = JSON.parse(req.responseText);
+          this.prodotti = ris;
         }
       }
-      req.open("GET", "http://localhost:1234/prodotti", false);
+
+      req.open("GET", url, false);
       req.send();
       /*this.prodotti = [
         {
@@ -94,8 +95,8 @@ export default {
           link: "https://www.wish.com/search/?name=prodotto3"
         }
       ];*/
-    },
-  },
+    }
+  }
 };
 </script>
 
