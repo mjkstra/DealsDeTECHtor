@@ -57,21 +57,23 @@ export default {
   },
   methods: {
     cerca: function () {
+      
       let stringa = document.getElementById("ricerca").value;
       let url = "http://localhost:1234/prodotti/" + stringa;
+      let listaProd;
       
       let req = new XMLHttpRequest();
       req.onreadystatechange = function (){
         if (this.readyState == 4 && this.status == 200) {
           console.log("Connessione riuscita");
           console.log(req.responseText);
-          let ris = JSON.parse(req.responseText);
-          this.prodotti = ris;
+          listaProd = JSON.parse(req.responseText);
         }
       }
 
       req.open("GET", url, false);
       req.send();
+      this.prodotti = listaProd;
       /*this.prodotti = [
         {
           nome: "Prodotto1",

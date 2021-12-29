@@ -351,8 +351,10 @@ app.get("/isPreferito/:nome", (request, response) => {
  *                          example: https://www.wish.com/search/?name=prodotto3
  */
 app.get("/prodotti/:nome", (request, response) => {
-    let prod_search = "/^"+request.params.nome+"";
-    database.collection("Prodotti").find({ nome: { $regex: prod_search } }).toArray( function(error,result){
+    let prod_search = new RegExp(request.params.nome,"i");
+    //Alternativa
+    //{ nome: { '$regex': request.params.nome, '$options' : 'i' } }
+    database.collection("Prodotti").find({'nome' : prod_search}).toArray( function(error,result){
         if (error)
             console.log(err);
         else{
