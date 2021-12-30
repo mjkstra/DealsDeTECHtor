@@ -66,7 +66,7 @@ export default {
       req.onreadystatechange = function (){
         if (this.readyState == 4 && this.status == 200) {
           console.log("Connessione riuscita");
-          console.log(req.responseText);
+          //console.log(req.responseText);
           listaProd = JSON.parse(req.responseText);
         }
       }
@@ -74,29 +74,6 @@ export default {
       req.open("GET", url, false);
       req.send();
       this.prodotti = listaProd;
-      /*this.prodotti = [
-        {
-          nome: "Prodotto1",
-          prezzo: 5.2,
-          sito: "Amazon",
-          valuta: "$",
-          link: "https://www.amazon.com/search/?name=prodotto1"
-        },
-        {
-          nome: "Prodotto2",
-          prezzo: 10.3,
-          sito: "Ebay",
-          valuta: "$",
-          link: "https://www.ebay.com/search/?name=prodotto2"
-        },
-        {
-          nome: "Prodotto3",
-          prezzo: 2.1,
-          sito: "Wish",
-          valuta: "$",
-          link: "https://www.wish.com/search/?name=prodotto3"
-        }
-      ];*/
     }
   }
 };

@@ -358,7 +358,6 @@ app.get("/prodotti/:nome", (request, response) => {
         if (error)
             console.log(err);
         else{
-            console.log(result);
             response.send(result);
         }
     })

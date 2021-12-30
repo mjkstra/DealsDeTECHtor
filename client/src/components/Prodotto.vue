@@ -2,7 +2,7 @@
 
   <div id="prodotto">
 
-    <div v-on:click="mostraPopup()">
+    <div v-on:click="mostraPopup()" style="cursor:pointer;text-decoration:underline;">
       {{ prodotto.nome }} ({{ prodotto.sito }})
     </div>
 
@@ -23,11 +23,17 @@
       v-on:click="cambiaIcona()" />
     
     <div id="popup" v-show="popup">
-      <h2>Dettagli prodotto</h2>
+      <div style="display:grid; grid-template-columns: 80% 20%;">
+        <h2>Dettagli prodotto</h2>
+        <b-icon
+        icon="x-circle-fill"
+        style="font-size: 4vh; justify-self: end;cursor:pointer;"
+        v-on:click="closePopup()"/>
+      </div>
       <hr />
       <p>
         Nome: {{ prodotto.nome }}<br />
-        Link: <a>{{ prodotto.link }}</a
+        Link: <a style="cursor:pointer;text-decoration:underline;">{{ prodotto.link }}</a
         ><br />
         Prezzo:
         <b class="text-info"
@@ -65,7 +71,7 @@ export default {
     };
 
     let url = "http://localhost:1234/isPreferito/" + this.prodotto.nome;
-    console.log(url);
+    //console.log(url);
     xhttp.open("GET", url, false);
     xhttp.send();
     return { isPreferito: preferito, popup: false };
@@ -77,7 +83,7 @@ export default {
 
       if (this.isPreferito) {
         let params = JSON.stringify({ prodotto: this.prodotto });
-        console.log(params);
+        //console.log(params);
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
 
@@ -105,20 +111,26 @@ export default {
           }
         };
         let url = "http://localhost:1234/preferiti/" + this.prodotto.nome;
-        console.log(url);
+        //console.log(url);
         xhttp.open("DELETE", url, true);
         xhttp.send();
 
       }
       this.prodotto.preferito = !this.prodotto.preferito;
     },
+    
+    closePopup : function (){
+      this.popup = false;
+    },
 
     mostraPopup: function () {
 
-      //popup = !popup;
+      this.popup = !this.popup;
       //let json = '{"prodotto": ' + convertToJSON(this.prodotto) + "}";
+      const { _id, ...cron_prod } = this.prodotto;
+      console.log(_id);
 
-      let params = JSON.stringify({ prodotto: this.prodotto });
+      let params = JSON.stringify({ prodotto: cron_prod });
       console.log(params);
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
@@ -145,8 +157,12 @@ export default {
 }
 #popup {
   position: absolute;
-  width: 50%;
+  width: max-content;
+  border: solid 1px black;
+  border-radius: 1vh;
+  padding: 2vh;
   margin-top: 25%;
+  z-index: 1;
   margin-left: 25%;
   background: white;
 }
