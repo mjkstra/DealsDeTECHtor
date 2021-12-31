@@ -16,7 +16,7 @@
           class="list-group-item p-3 product-entry"
           v-for="p in prodotti"
           :key="p.nome" >
-          <Prodotto :prodotto="p" />
+          <Prodotto :prodotto="p" :usable="false" />
         </li>
       </ul>
     </div>
@@ -66,6 +66,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   background-color: lightblue;
   height: 100vh;
+  overflow: auto;
 }
 
 #menu {
@@ -93,6 +94,7 @@ export default {
   grid-template-columns: 35%;
   justify-content: center;
   margin-top: 2%;
+  margin-bottom: 1%;
 }
 
 #title{

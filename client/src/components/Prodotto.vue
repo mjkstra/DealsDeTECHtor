@@ -52,6 +52,7 @@ export default {
 
   props: {
     prodotto: Object,
+    usable : Boolean,
     default: () => ({}),
   },
 
@@ -127,21 +128,24 @@ export default {
 
       this.popup = !this.popup;
       //let json = '{"prodotto": ' + convertToJSON(this.prodotto) + "}";
+      
       const { _id, ...cron_prod } = this.prodotto;
       console.log(_id);
 
-      let params = JSON.stringify({ prodotto: cron_prod });
-      console.log(params);
-      let xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          // Typical action to be performed when the document is ready:
-          console.log("Connessione riuscita");
-        }
-      };
-      xhttp.open("POST", "http://localhost:1234/cronologia", true);
-      xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
-      xhttp.send(params);
+      if(this.usable == true){
+        let params = JSON.stringify({ prodotto: cron_prod });
+        //console.log(params);
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            console.log("Connessione riuscita");
+          }
+        };
+        xhttp.open("POST", "http://localhost:1234/cronologia", true);
+        xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        xhttp.send(params);
+      }
 
     },
   }

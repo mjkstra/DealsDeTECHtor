@@ -293,7 +293,7 @@ app.get("/isPreferito/:nome", (request, response) => {
             console.log(err);
         }
         else {
-            console.log(result);
+            //console.log(result);
             if (result != null && result != undefined && result != {}) {
                 response.send("OK");
             } else {

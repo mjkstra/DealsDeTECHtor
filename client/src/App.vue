@@ -29,7 +29,7 @@
           v-for="p in prodotti"
           :key="p.nome"
         >
-          <Prodotto :prodotto="p" />
+          <Prodotto :prodotto="p" :usable="true"/>
         </li>
       </ul>
       <h3 v-if="prodotti == []">
@@ -84,6 +84,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   background-color: lightblue;
   height: 100vh;
+  overflow:auto;
 }
 
 #menu {
@@ -111,6 +112,7 @@ export default {
   grid-template-columns: 35%;
   justify-content: center;
   margin-top: 2%;
+  margin-bottom: 1%;
 }
 
 #title{
